@@ -11,7 +11,7 @@ function Categories(props) {
         const clickedItem = event.target.textContent;
         let itemShortName = clickedItem.split("-")[1];
         props.setSelectedCategory(itemShortName);
-        props.GetAllItems(props.selectedCategory);
+        props.GetAllItems(itemShortName);
     }
 
     return (

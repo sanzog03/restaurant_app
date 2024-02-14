@@ -20,7 +20,7 @@ export const Resources = {
 
 const initialState = {
     categories: [],
-    selectedCategory: "SS"
+    selectedCategory: null
 };
 
 // FUNCTIONAL REDUCERS

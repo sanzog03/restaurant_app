@@ -3,16 +3,15 @@ import {connect} from "react-redux";
 import { mapDispatcherToProps, mapStateToProps } from "./redux/itemRedux";
 
 function Items(props) {
-    let categoryShortName = "SS"
     useEffect(() => {
-        props.GetAllItems(categoryShortName)
+        props.GetAllItems(props.selectedCategory)
     }, []);
 
     console.log(props)
 
     return (
         <div className={props.className}>
-            <h1>Items in Category: ({categoryShortName})</h1>
+            <h1>Items in Category: ({props.selectedCategory})</h1>
             <table className="customTable">
                 <thead>
                     <tr>

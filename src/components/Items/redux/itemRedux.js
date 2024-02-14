@@ -48,14 +48,17 @@ export function itemsReducer(state = initialState, action = {}) {
 export const mapStateToProps = state => {
     const {itemsReducer: {items}} = state;
 
+    const {categoriesReducer: {selectedCategory}} = state;
+    
     return {
-        items
+        items,
+        selectedCategory
     };
 };
 
 // action dispatchers
 
-const GetAllItems = (category) => {
+export const GetAllItems = (category) => {
     const {url} = Resources.getItems;
     const {success, error} = Resources.getItems.asyncActions;
     return async (dispatch, getState) => {

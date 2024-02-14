@@ -7,14 +7,20 @@ function Categories(props) {
         props.GetAllCategories()
     }, []);
 
-    console.log(props)
+    const handleClick = (event) => {
+        const clickedItem = event.target.textContent;
+        let itemShortName = clickedItem.split("-")[1];
+        props.setSelectedCategory(itemShortName);
+        props.GetAllItems(props.selectedCategory);
+    }
+
     return (
         <div className={props.className}>
             <h1>Menu Categories</h1>
             <ul>
             {
                 props.categories && (
-                    props.categories.map(category => (<li key={category.id}>{category.name}-{category.short_name}</li>))
+                    props.categories.map(category => (<li key={category.id} onClick={handleClick}>{category.name}-{category.short_name}</li>))
                 )
             }
             </ul>

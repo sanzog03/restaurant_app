@@ -1,8 +1,13 @@
+import {GetAllItems} from "../../Items/redux/itemRedux";
+
 // ACTION_TYPE DEFINATIONS
 
 export const Resources = {
     getCategories: {
       url: 'https://stream-restaurant-menu-svc.herokuapp.com/category',
+      syncActions: {
+        selectCategory: 'SELECTED_CATEGORY',
+      },
       asyncActions: {
         init: "CATEGORIES_INIT",
         success: "CATEGORIES_SUCCESS",
@@ -15,12 +20,14 @@ export const Resources = {
 
 const initialState = {
     categories: [],
+    selectedCategory: "SS"
 };
 
 // FUNCTIONAL REDUCERS
 
 export function categoriesReducer(state = initialState, action = {}) {
     const {init, success, error} = Resources.getCategories.asyncActions;
+    const {selectCategory} = Resources.getCategories.syncActions;
 
     switch (action.type) {
         case init: {
@@ -38,6 +45,10 @@ export function categoriesReducer(state = initialState, action = {}) {
             return {...state};
         }
 
+        case selectCategory: {
+            return {...state, selectedCategory: action.payload}
+        }
+
         default: {
             return {...state};
         }
@@ -46,14 +57,15 @@ export function categoriesReducer(state = initialState, action = {}) {
   
 // for react - redux connect
 export const mapStateToProps = state => {
-    const {categoriesReducer: {categories}} = state;
+    const {categoriesReducer: {categories, selectedCategory}} = state;
 
     return {
-        categories
+        categories,
+        selectedCategory
     };
 };
 
-// action dispatchers
+// async action dispatchers
 
 const GetAllCategories = () => {
     const {url} = Resources.getCategories;
@@ -71,6 +83,17 @@ const GetAllCategories = () => {
     }
 }
 
+// sync action dispatchers
+
+const setSelectedCategory = (category) => {
+    const {selectCategory} = Resources.getCategories.syncActions;
+    return (dispatch, getState) => {
+        dispatch({type: selectCategory, payload: category});
+    }
+}
+
 export const mapDispatcherToProps = {
-    GetAllCategories
+    GetAllCategories,
+    setSelectedCategory,
+    GetAllItems
 }

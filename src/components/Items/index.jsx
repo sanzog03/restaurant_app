@@ -21,8 +21,8 @@ function Items(props) {
                         </thead>
                         <tbody>
                         {
-                            props.items && props.items.map(item => (
-                                <tr>
+                            props.items && props.items.map((item, index) => (
+                                <tr className={(index+1) % 2 == 0 ? "evenTableRow" : ""}>
                                     <td>
                                         {item.name}
                                     </td>
